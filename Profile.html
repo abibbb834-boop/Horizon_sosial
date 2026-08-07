@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Profile - Horizon Social</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+.box{
+width:90%;
+max-width:500px;
+margin:30px auto;
+background:#222;
+padding:20px;
+border-radius:10px;
+}
+
+input{
+width:90%;
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:10px;
+background:#1da1f2;
+color:white;
+border:0;
+border-radius:5px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+<h1>👤 Profil</h1>
+
+
+<h2 id="username"></h2>
+
+
+<input id="newUsername" placeholder="Username baru">
+
+<button onclick="changeName()">
+Ganti Nama
+</button>
+
+
+
+<hr>
+
+
+
+<p id="bio"></p>
+
+
+<input id="newBio" placeholder="Bio baru">
+
+
+<button onclick="changeBio()">
+Simpan Bio
+</button>
+
+
+
+<hr>
+
+
+<h3 id="followers"></h3>
+
+
+<button onclick="follow()">
+Follow / Unfollow
+</button>
+
+
+
+<br><br>
+
+
+<a href="home.html">
+🏠 Home
+</a>
+
+
+</div>
+
+
+
+<script>
+
+
+let username =
+localStorage.getItem("username");
+
+
+if(!username){
+
+window.location="login.html";
+
+}
+
+
+
+
+function load(){
+
+
+username =
+localStorage.getItem("username");
+
+
+
+document.getElementById("username").innerHTML =
+"@"+username;
+
+
+
+let bio =
+localStorage.getItem(
+"bio_"+username
+)
+||"Belum ada bio";
+
+
+
+document.getElementById("bio").innerHTML =
+bio;
+
+
+
+let followers =
+JSON.parse(
+localStorage.getItem(
+"followers_"+username
+)
+)||[];
+
+
+
+document.getElementById("followers").innerHTML =
+"👥 Followers: "+followers.length;
+
+
+
+}
+
+
+
+
+
+function changeBio(){
+
+
+let bio =
+document.getElementById("newBio").value;
+
+
+if(bio==""){
+return;
+}
+
+
+localStorage.setItem(
+"bio_"+username,
+bio
+);
+
+
+load();
+
+
+}
+
+
+
+
+
+function changeName(){
+
+
+let newName =
+document.getElementById("newUsername").value;
+
+
+
+if(newName==""){
+alert("Masukkan nama baru!");
+return;
+}
+
+
+
+localStorage.setItem(
+"username",
+newName
+);
+
+
+
+alert("Username berhasil diganti!");
+
+
+
+location.reload();
+
+
+}
+
+
+
+
+
+function follow(){
+
+
+let me =
+localStorage.getItem("username");
+
+
+let target =
+username;
+
+
+
+if(me==target){
+
+alert("Tidak bisa follow diri sendiri!");
+
+return;
+
+}
+
+
+
+
+let followers =
+JSON.parse(
+localStorage.getItem(
+"followers_"+target
+)
+)||[];
+
+
+
+if(followers.includes(me)){
+
+
+followers =
+followers.filter(
+x=>x!=me
+);
+
+
+
+alert("Unfollow berhasil");
+
+
+}else{
+
+
+followers.push(me);
+
+
+alert("Follow berhasil");
+
+
+}
+
+
+
+
+localStorage.setItem(
+
+"followers_"+target,
+
+JSON.stringify(followers)
+
+);
+
+
+
+load();
+
+
+}
+
+
+
+
+
+load();
+
+
+
+</script>
+
+
+</body>
+
+</html>

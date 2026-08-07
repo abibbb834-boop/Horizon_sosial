@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Horizon Social</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#111;
+    color:white;
+    margin:0;
+}
+
+header{
+    background:#1da1f2;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.container{
+    width:90%;
+    max-width:600px;
+    margin:20px auto;
+}
+
+textarea{
+    width:100%;
+    height:80px;
+    padding:10px;
+    border-radius:10px;
+    resize:none;
+}
+
+button{
+    margin-top:10px;
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:#1da1f2;
+    color:white;
+    cursor:pointer;
+}
+
+.post{
+    background:#222;
+    margin-top:15px;
+    padding:15px;
+    border-radius:10px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<div><b>🌐 Horizon Social</b></div>
+
+<div>
+<span id="user"></span>
+<button onclick="logout()">Logout</button>
+</div>
+</header>
+
+<div class="container">
+
+<h2>Buat Postingan</h2>
+
+<textarea id="text" placeholder="Apa yang kamu pikirkan?"></textarea>
+
+<br>
+
+<button onclick="post()">Post</button>
+
+<hr>
+
+<div id="timeline"></div>
+
+</div>
+
+<script>
+
+if(localStorage.getItem("login")!="true"){
+location.href="login.html";
+}
+
+let username=localStorage.getItem("username");
+
+document.getElementById("user").innerHTML="@"+username;
+
+let posts=JSON.parse(localStorage.getItem("posts"))||[];
+
+function save(){
+localStorage.setItem("posts",JSON.stringify(posts));
+}
+
+function post(){
+
+let text=document.getElementById("text").value.trim();
+
+if(text==""){
+alert("Tulis sesuatu.");
+return;
+}
+
+posts.unshift({
+user:username,
+text:text,
+like:0
+});
+
+save();
+
+document.getElementById("text").value="";
+
+show();
+
+}
+
+function like(i){
+
+posts[i].like++;
+
+save();
+
+show();
+
+}
+
+function hapus(i){
+
+if(posts[i].user!=username){
+alert("Kamu hanya bisa menghapus postingan sendiri.");
+return;
+}
+
+posts.splice(i,1);
+
+save();
+
+show();
+
+}
+
+function show(){
+
+let html="";
+
+posts.forEach((p,i)=>{
+
+html+=`
+<div class="post">
+
+<b>@${p.user}</b>
+
+<p>${p.text}</p>
+
+❤️ ${p.like}
+
+<br><br>
+
+<button onclick="like(${i})">Like</button>
+
+${p.user==username?`<button onclick="hapus(${i})">Hapus</button>`:""}
+
+</div>
+`;
+
+});
+
+document.getElementById("timeline").innerHTML=html;
+
+}
+
+function logout(){
+
+localStorage.removeItem("login");
+
+location.href="login.html";
+
+}
+
+show();
+
+</script>
+
+</body>
+</html>

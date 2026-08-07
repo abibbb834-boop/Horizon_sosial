@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Login - Horizon Social</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#111;
+    color:white;
+    text-align:center;
+}
+
+.box{
+    margin:100px auto;
+    width:300px;
+    padding:20px;
+    background:#222;
+    border-radius:10px;
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:8px;
+    border-radius:5px;
+    border:none;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    background:#1da1f2;
+    color:white;
+    cursor:pointer;
+}
+
+a{
+    color:#1da1f2;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+<h1>🌐 Login</h1>
+
+
+<input id="username" placeholder="Username">
+
+
+<input id="password" type="password" placeholder="Password">
+
+
+<br>
+
+
+<button onclick="login()">
+Login
+</button>
+
+
+<p>
+Belum punya akun?
+<a href="register.html">
+Register
+</a>
+</p>
+
+
+</div>
+
+
+
+<script>
+
+
+function login(){
+
+
+let username =
+document.getElementById("username").value;
+
+
+let password =
+document.getElementById("password").value;
+
+
+
+let savedUser =
+localStorage.getItem("username");
+
+
+let savedPass =
+localStorage.getItem("password");
+
+
+
+if(username=="" || password==""){
+
+alert("Isi semua data!");
+
+return;
+
+}
+
+
+
+if(username==savedUser && password==savedPass){
+
+
+localStorage.setItem(
+"login",
+"true"
+);
+
+
+alert("Login berhasil!");
+
+
+window.location="home.html";
+
+
+}else{
+
+
+alert("Username atau password salah!");
+
+}
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>

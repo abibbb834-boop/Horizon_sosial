@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Profile - Horizon Social</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>👤 Profil User</h1>
+
+<h2 id="username"></h2>
+
+<p id="bio"></p>
+
+<a href="home.html">⬅ Kembali</a>
+
+</div>
+
+
+<script>
+
+let user = localStorage.getItem("viewUser");
+
+
+document.getElementById("username").innerHTML =
+"@" + user;
+
+
+let bio = localStorage.getItem("bio_" + user)
+|| "Belum ada bio";
+
+
+document.getElementById("bio").innerHTML =
+bio;
+
+
+</script>
+
+</body>
+</html>

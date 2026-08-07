@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Register - Horizon Social</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#111;
+    color:white;
+    text-align:center;
+}
+
+
+.box{
+
+    margin:100px auto;
+    width:300px;
+    padding:20px;
+    background:#222;
+    border-radius:10px;
+
+}
+
+
+input{
+
+    width:90%;
+    padding:10px;
+    margin:8px;
+    border-radius:5px;
+    border:none;
+
+}
+
+
+button{
+
+    padding:10px 20px;
+    background:#1da1f2;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+
+}
+
+
+a{
+
+    color:#1da1f2;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+<h1>🌐 Register</h1>
+
+
+<input id="username" placeholder="Buat Username">
+
+
+<input id="password" type="password" placeholder="Buat Password">
+
+
+<br>
+
+
+<button onclick="register()">
+Daftar
+</button>
+
+
+
+<p>
+
+Sudah punya akun?
+
+<a href="login.html">
+Login
+</a>
+
+</p>
+
+
+</div>
+
+
+
+<script>
+
+
+function register(){
+
+
+let username =
+document.getElementById("username").value;
+
+
+let password =
+document.getElementById("password").value;
+
+
+
+if(username=="" || password==""){
+
+alert("Isi semua data!");
+
+return;
+
+}
+
+
+
+
+let cek =
+localStorage.getItem("username");
+
+
+
+if(cek){
+
+alert("Akun sudah ada, silakan login!");
+
+window.location="login.html";
+
+return;
+
+}
+
+
+
+
+localStorage.setItem(
+"username",
+username
+);
+
+
+localStorage.setItem(
+"password",
+password
+);
+
+
+
+alert("Akun berhasil dibuat!");
+
+
+
+window.location="login.html";
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>
